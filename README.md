@@ -421,3 +421,12 @@ $$
 </div>
 
 <p align="center">Speed error response to initial condition</p>
+
+## Different controller comparison
+
+| Controller name | Cross-track error (Overshoot)           | Planner requirement | Robustness | Suitable Application      |
+|-----------------|-----------------------------------------|---------------------|------------|----------------------------|
+| Pure Pursuit    | High steady state error (high speed)    | No                  | High       | Slow driving; discontinuous path |
+| Stanley Method  | Better than PP but still when speed increase, error increase | Continuous         | Mid        | Smooth high speed; Parking |
+| LQR             | Large error in the curvy road, good tracking in straight road | Continuous         | Low        | High way drive             |
+| Preview Control | Good tracking performance with the preview information.        | Low                | Mid        | High way and urban drive   |
