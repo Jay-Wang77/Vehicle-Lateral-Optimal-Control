@@ -342,13 +342,21 @@ $$
 \delta = -Kx = -k_1 e_{cg} - k_2 \dot{e_cg} - k_3 e_\theta - k_4 \dot{e}_\theta.
 $$
 
+- Add feedforward control to calculate the steering angle theoretically required to drive smoothly along the trajectory without any deviation:
+
+$$ 
+\delta_s = {\delta_f} -Kx = atan(\rho*(l_r + l_f)) -k_1 e_{cg} - k_2 \dot{e_cg} - k_3 e_\theta - k_4 \dot{e}_\theta. 
+$$
+
 Apply LQR in this situation, we have
 
-$$ \delta^*(k) = -Kx(k) $$
+$$
+\delta^*(k) = -Kx(k)+\delta_f(k)
+$$
 
 Where  
 
-$$ 
+$$
 K = (R + B_d^T P B_d)^{-1} B_d^T P A_d. 
 $$
 
@@ -360,6 +368,7 @@ where P satisfies the matrix difference Riccati equation
 
 $$ P = A_d^T P A_d - A_d^T P B_d(R + B_d^T P B_d)^{-1} B_d^T P A_d + Q $$
 
+(The P matrix provides an estimate of the cost required to reach the target state for a given state. It reflects the performance index in the process of transferring the system state to the target state.)
 
 ##  LQR tuning
 Let 
@@ -430,3 +439,30 @@ $$
 | Stanley Method  | Better than PP but still when speed increase, error increase | Continuous         | Mid        | Smooth high speed; Parking |
 | LQR             | Large error in the curvy road, good tracking in straight road | Continuous         | Low        | High way drive             |
 | Preview Control | Good tracking performance with the preview information.        | Low                | Mid        | High way and urban drive   |
+
+## Code Framework
+- **Properties**
+  - Time step (`ts_`)
+  - Front and rear wheel cornering stiffness (`cf_`, `cr_`)
+  - Wheelbase and steer ratio (`wheelbase_`, `steer_ratio_`)
+  - Maximum steering angle (`steer_single_direction_max_degree_`)
+  - Vehicle mass and inertia (`mass_`, `iz_`)
+  - Front and rear distances from the center of mass (`lf_`, `lr_`)
+  - LQR algorithm parameters (`lqr_eps_`, `lqr_max_iteration_`)
+- **Initialization**
+  - Load vehicle and LQR configuration (`LoadControlConf`)
+  - Initialize matrices and control parameters (`Init`)
+- **Control Logic**
+  - Update vehicle state and compute control command (`ComputeControlCommand`)
+  - **State Update**
+    - Compute lateral errors (`ComputeLateralErrors`)
+    - Update state matrix (`UpdateState`)
+  - **Matrix Updates**
+    - Update the state matrix A and discretize the state matrix A (`UpdateMatrix`)
+  - **Control Computation**
+    - Solve LQR problem to obtain control gains (`SolveLQRProblem`)
+    - Compute feedback and feedforward components (`ComputeFeedForward`)
+    - Calculate the final steering angle
+- **Utilities**
+  - Normalize angles and calculate distances (`NormalizeAngle`, `PointDistanceSquare`)
+  - Query the nearest trajectory point (`QueryNearestPointByPosition`)
