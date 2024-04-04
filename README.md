@@ -3,6 +3,50 @@
 Exploring optimal vehicle lateral control: Linear Quadratic Regulator (LQR)
 Designed to handle lateral movement of vehicles. Through mathematical models and dynamic system analysis, it is revealed how LQR optimizes vehicle trajectory tracking. Starting from the standard linear state space model, it is elaborated on how the quadratic form of the cost function helps the LQR algorithm to convert non-zero initialization into an infinite time range. The state is smoothly adjusted to the target state. It shows how to adjust the relative importance of control strength and state error to achieve fine control of vehicle lateral dynamics. It also explores how the "bicycle" dynamic model is applied to LQR and how to solve the optimal control law through the Riccati equation.
 
+## Getting Started
+
+### Requirements
+- Ubuntu 20.04
+- ROS neotic
+- Additional installation of carla-ros-bridge packages and other packages is required.
+- Carla 0.9.13
+
+1. **Enter Workspace Folder**
+    Navigate to the workspace folder where you want to build the project.
+
+    ```bash
+    cd your_workspace_path
+    ```
+
+2. **Build the Project**
+    Use `catkin_make` to build the ROS packages.
+
+    ```bash
+    rosdep install --from-paths src --ignore-src
+    catkin build
+    ```
+
+3. **Source the Setup Script**
+    To configure the environment variables for the project, source the setup script.
+
+    ```bash
+    source ./devel/setup.bash
+    ```
+4. **Run Carla simulator**
+     Navigate to the Carla simulator directory and run the following command.
+
+    ```bash
+    ./CarlaUE4.sh
+    ```
+5. **Launching the Project**
+     Navigate to the ROS workspace (carla-ros-bridge) and follow these steps in order:
+
+     Run the Carla LQR controller node:
+
+    ```bash
+    roslaunch lqr_control demo.launch
+    ```
+
 # Linear Quadratic Regulator (LQR)
 A system is described by the standard linear state space model:
 
