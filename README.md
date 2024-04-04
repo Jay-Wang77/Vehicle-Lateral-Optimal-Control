@@ -1,5 +1,8 @@
 # Vehicle-Lateral-Optimal-Control
 
+Exploring optimal vehicle lateral control: Linear Quadratic Regulator (LQR)
+Designed to handle lateral movement of vehicles. Through mathematical models and dynamic system analysis, it is revealed how LQR optimizes vehicle trajectory tracking. Starting from the standard linear state space model, it is elaborated on how the quadratic form of the cost function helps the LQR algorithm to convert non-zero initialization into an infinite time range. The state is smoothly adjusted to the target state. It shows how to adjust the relative importance of control strength and state error to achieve fine control of vehicle lateral dynamics. It also explores how the "bicycle" dynamic model is applied to LQR and how to solve the optimal control law through the Riccati equation.
+
 # Linear Quadratic Regulator (LQR)
 A system is described by the standard linear state space model:
 
