@@ -203,12 +203,13 @@ $$
 \theta_{vr} = \tan^{-1}\left(\frac{v_{yr}}{v_{xr}}\right) = \tan^{-1}\left(\frac{v_y - l_r r}{v_x}\right)
 $$
 ### Lateral and Yaw Dynamics:
+
 $$
-\dot{v_y} = \frac{c_f}{m} \left( \delta - \tan^{-1}\left(\frac{v_y + l_f r}{v_x}\right) \right) \cos(\delta) - \frac{c_r}{m} \tan^{-1}\left(\frac{v_y - l_r r}{v_x}\right) - \frac{F_{xf} \sin(\delta)}  - v_x r
+\dot{v_y} = \frac{c_f \left[ \delta - \tan^{-1}\left(\frac{v_y + {r}l_f}{v_x}\right) \right] \cos(\delta) - c_r\tan^{-1}\left(\frac{v_y - {r}l_r}{v_x}\right) - F_{xf}\sin(\delta)}{m} - v_xr
 $$
 
 $$
-\dot{r} = \frac{1}{I_z} \left( l_f c_f \left( \delta - \tan^{-1}\left(\frac{v_y + l_f r}{v_x}\right) \right) \cos(\delta) + l_r c_r \tan^{-1}\left(\frac{v_y - l_r r}{v_x}\right) - l_f F_{xf} \sin(\delta) \right)
+\dot{r} = \frac{c_f l_f \left[ \delta - \tan^{-1}\left(\frac{v_y + {r}l_f}{v_x}\right) \right] \cos(\delta) + c_r l_r \tan^{-1}\left(\frac{v_y - {r}l_r}{v_x}\right) - l_f F_{xf}\sin(\delta)}{I_z}
 $$
 
 after small angle assumptions and re-group by variables:
